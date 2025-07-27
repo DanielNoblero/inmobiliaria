@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 1.6;
+}
+
+main {
+    padding-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
