@@ -15,12 +15,24 @@ const App = () => {
       <Nav />
 
       <Routes>
-        <Route path="/"element={ <>
-              <SearchBar />
-              <Destacados />
-            </>
-          }
-        />
+        <Route
+  path="/"
+  element={
+    <>
+      <div style={{ textAlign: 'center', marginTop: '6rem', marginBottom: '2rem' }}>
+        <h1 style={{ fontSize: '2rem', color: '#2b7cff', marginBottom: '0.5rem' }}>
+          Encuentra tu apartamento soñado
+        </h1>
+        <p style={{ fontSize: '1.1rem', color: '#444' }}>
+          Explora los apartamentos en venta y alquiler
+        </p>
+      </div>
+
+      <SearchBar />
+      <Destacados />
+    </>
+  }
+/>
         <Route path="/resultados" element={<Resultados />} />
         <Route path="/alquiler" element={<Alquiler />} />
         <Route path="/venta" element={<Venta />} />

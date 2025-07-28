@@ -2,6 +2,7 @@ import React from 'react';
 import '../Css/Destacados.css';
 import apt1 from '../Multimedia/apartamento1.jpeg';
 import apt2 from '../Multimedia/apartamento2.jpeg';
+import { Link } from 'react-router-dom';
 
 const propiedades = [
     {
@@ -31,6 +32,7 @@ export default function Destacados() {
                         <p className="precio">{prop.precio}</p>
                         <p className="ciudad">{prop.ciudad}</p>
                         <p className="descripcion">{prop.descripcion}</p>
+                        <Link to={`/propiedad/${prop.id}`} className="ver-mas">Ver más detalles</Link>
                     </div>
                 </div>
             ))}

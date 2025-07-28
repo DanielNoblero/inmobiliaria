@@ -6,7 +6,7 @@ import './components/Css/style.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   
-    <BrowserRouter>
+    <BrowserRouter basename="/Inmobiliaria">
       <App />
     </BrowserRouter>
   
