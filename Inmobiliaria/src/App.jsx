@@ -9,6 +9,7 @@ import Venta from './Page/Venta.jsx';
 import PropiedadDetalle from './components/PropiedadesDetalle/PropiedadesDetalle.jsx';
 import WhatsAppWidget from './components/WhatsApp/WhatsApp.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import  './components/Css/Logo.css'
 
 const App = () => {
 
@@ -21,21 +22,13 @@ const App = () => {
           path="/"
           element={
             <>
-
-              <div style={{ textAlign: 'center', marginTop: '6rem', marginBottom: '2rem' }}>
-  <img
-    src="/inmobiliaria/src/components/Multimedia/Logo.jpg"
-    alt="Logo Vallarino"
-    style={{
-      width: '100%',
-      maxWidth: '500px',
-      height: 'auto',
-      marginBottom: '1rem',
-      borderRadius: '1rem',
-    }}
-  />
-</div>
-
+              <div className="logo-container">
+                <img
+                  src="/inmobiliaria/Logo.jpg"
+                  alt="Logo Vallarino"
+                  className="logo-img"
+                />
+              </div>
               <SearchBar />
               <Destacados />
             </>

@@ -1,0 +1,20 @@
+.logo-container {
+    text-align: center;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .logo-container {
+        margin-top: 10rem;
+        /* más espacio hacia abajo en celular */
+    }
+}
+
+.logo-img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+}
