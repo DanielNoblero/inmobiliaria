@@ -7,6 +7,8 @@ import Destacados from './components/Destacados/Destacados.jsx';
 import Alquiler from './Page/Alquiler.jsx';
 import Venta from './Page/Venta.jsx';
 import PropiedadDetalle from './components/PropiedadesDetalle/PropiedadesDetalle.jsx';
+import WhatsAppWidget from './components/WhatsApp/WhatsApp.jsx';
+import Footer from './components/Footer/Footer.jsx';
 
 const App = () => {
 
@@ -16,29 +18,38 @@ const App = () => {
 
       <Routes>
         <Route
-  path="/"
-  element={
-    <>
-      <div style={{ textAlign: 'center', marginTop: '6rem', marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', color: '#2b7cff', marginBottom: '0.5rem' }}>
-          Encuentra tu apartamento soñado
-        </h1>
-        <p style={{ fontSize: '1.1rem', color: '#444' }}>
-          Explora los apartamentos en venta y alquiler
-        </p>
-      </div>
+          path="/"
+          element={
+            <>
 
-      <SearchBar />
-      <Destacados />
-    </>
-  }
-/>
+              <div style={{ textAlign: 'center', marginTop: '6rem', marginBottom: '2rem' }}>
+  <img
+    src="/inmobiliaria/src/components/Multimedia/Logo.jpg"
+    alt="Logo Vallarino"
+    style={{
+      width: '100%',
+      maxWidth: '500px',
+      height: 'auto',
+      marginBottom: '1rem',
+      borderRadius: '1rem',
+    }}
+  />
+</div>
+
+              <SearchBar />
+              <Destacados />
+            </>
+          }
+        />
         <Route path="/resultados" element={<Resultados />} />
         <Route path="/alquiler" element={<Alquiler />} />
         <Route path="/venta" element={<Venta />} />
         <Route path="/propiedad/:id" element={<PropiedadDetalle />} />
-      </Routes>
 
+
+      </Routes>
+      <WhatsAppWidget />
+      <Footer />
     </div>
 
   );

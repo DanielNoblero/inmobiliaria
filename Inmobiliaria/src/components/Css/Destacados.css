@@ -70,3 +70,9 @@
         background: #fff;
         color: #adb5bd
     }
+
+    .boton-contenedor {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }

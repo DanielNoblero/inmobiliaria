@@ -32,7 +32,10 @@ export default function Destacados() {
                         <p className="precio">{prop.precio}</p>
                         <p className="ciudad">{prop.ciudad}</p>
                         <p className="descripcion">{prop.descripcion}</p>
-                        <Link to={`/propiedad/${prop.id}`} className="ver-mas">Ver más detalles</Link>
+                        <div className="boton-contenedor">
+                            <Link to={`/propiedad/${prop.id}`} className="ver-mas">Ver más detalles</Link>
+                        </div>
+
                     </div>
                 </div>
             ))}

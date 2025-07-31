@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../Css/Navbar.css';
+import Logo from '../Multimedia/Logo2.jpg'; // Asegúrate de que la ruta sea correcta
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,18 @@ export default function Navbar() {
   return (
     <header className="header">
       <nav className="navbar">
-        <Link to="/" className="logo">COMPANIA</Link>
+        <Link to="/" className="logo">
+          <img
+            src={Logo}
+            alt="Logo Vallarino"
+            style={{
+              height: '40px',
+              marginRight: '8px',
+              verticalAlign: 'middle',
+            }}
+          />
+          VALLARINO
+        </Link>
 
         <div className="menu-toggle" onClick={toggleMenu}>
           <span className="bar"></span>

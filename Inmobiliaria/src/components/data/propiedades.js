@@ -10,7 +10,7 @@ export const propiedades = [
         ciudad: 'Montevideo',
         barrio: 'Pocitos',
         precio: 120000,
-        titulo: 'Apto en Pocitos',
+        titulo: 'Apartamento en Pocitos',
         descripcion: 'Excelente estado, a metros de la rambla.',
         imagen: apt1,
         imagenes: [apt1, apt1b],
