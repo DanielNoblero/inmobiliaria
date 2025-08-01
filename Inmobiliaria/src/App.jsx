@@ -9,7 +9,11 @@ import Venta from './Page/Venta.jsx';
 import PropiedadDetalle from './components/PropiedadesDetalle/PropiedadesDetalle.jsx';
 import WhatsAppWidget from './components/WhatsApp/WhatsApp.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import  './components/Css/Logo.css'
+import './components/Css/Logo.css'
+import Admin from './components/Admin/Admin.jsx';
+import RutaProtegida from './components/RutaProtegida.jsx';
+import Login from './Page/Login.jsx';
+
 
 const App = () => {
 
@@ -24,7 +28,7 @@ const App = () => {
             <>
               <div className="logo-container">
                 <img
-                  src="/inmobiliaria/Logo.jpg"
+                  src="/Logo.jpg"
                   alt="Logo Vallarino"
                   className="logo-img"
                 />
@@ -38,7 +42,15 @@ const App = () => {
         <Route path="/alquiler" element={<Alquiler />} />
         <Route path="/venta" element={<Venta />} />
         <Route path="/propiedad/:id" element={<PropiedadDetalle />} />
-
+        <Route
+          path="/admin"
+          element={
+            <RutaProtegida>
+              <Admin />
+            </RutaProtegida>
+          }
+        />
+        <Route path="/login" element={<Login />} />
 
       </Routes>
       <WhatsAppWidget />

@@ -106,12 +106,37 @@
 
     .nav-links.active {
         display: flex;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border-bottom: 1rem;
+        margin: auto;
+        padding: 1rem 5rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     }
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s;
+}
 
-    .nav-item {
-        color: black;
-        width: 100%;
-        text-align: center;
-        margin: 0.5rem 0;
-    }
+.nav-item:hover {
+    color: skyblue;
+}
+
+.nav-item::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s;
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
 }

@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
-import './components/Css/style.css'; 
+import { AuthProvider } from './context/AuthContext'; // ✅ Importación necesaria
+import './components/Css/style.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  
-    <BrowserRouter basename="/Inmobiliaria">
+  <BrowserRouter basename="/inmobiliaria">
+    <AuthProvider>
       <App />
-    </BrowserRouter>
-  
+    </AuthProvider>
+  </BrowserRouter>
 );
