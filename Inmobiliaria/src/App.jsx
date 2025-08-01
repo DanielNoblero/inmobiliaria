@@ -33,6 +33,21 @@ const App = () => {
                   className="logo-img"
                 />
               </div>
+
+              <div style={{ textAlign: 'center', marginTop: '6rem', marginBottom: '2rem' }}>
+  <img
+    src="/Inmobiliaria/src/components/Multimedia/Logo.jpg"
+    alt="Logo Vallarino"
+    style={{
+      width: '100%',
+      maxWidth: '500px',
+      height: 'auto',
+      marginBottom: '1rem',
+      borderRadius: '1rem',
+    }}
+  />
+</div>
+
               <SearchBar />
               <Destacados />
             </>
