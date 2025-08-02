@@ -6,7 +6,7 @@ import { AuthProvider } from './context/AuthContext'; // ✅ Importación necesa
 import './components/Css/style.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename="/Inmobiliaria">
+  <BrowserRouter basename="/inmobiliaria">
     <AuthProvider>
       <App />
     </AuthProvider>

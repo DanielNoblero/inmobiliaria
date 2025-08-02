@@ -41,7 +41,7 @@ export default function Venta() {
     });
 
     return (
-        <div style={{ padding: '2rem', marginTop: '5rem' }}>
+        <div style={{ padding: '2rem', marginTop: '20rem' }}>
             <h2 style={{ color: 'Black', textAlign: 'center' }}>Propiedades en venta</h2>
 
             <Filtros filtros={filtros} setFiltros={setFiltros} />

@@ -28,7 +28,7 @@ const App = () => {
             <>
               <div className="logo-container">
                 <img
-                  src="/Logo.jpg"
+                  src="/inmobiliaria/Logo.jpg"
                   alt="Logo Vallarino"
                   className="logo-img"
                 />
