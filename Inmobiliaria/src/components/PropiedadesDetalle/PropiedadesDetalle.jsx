@@ -35,7 +35,7 @@ export default function PropiedadDetalle() {
 
     const sliderSettings = {
         dots: true,
-        infinite: true,
+        infinite: propiedad?.imagenes && propiedad.imagenes.length > 1 ? true : false,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -65,9 +65,9 @@ export default function PropiedadDetalle() {
             <div className="propiedad-info">
                 <p><strong>Ubicación:</strong> {propiedad.barrio || 'Barrio no especificado'}, {propiedad.ciudad}</p>
                 <p><strong>Precio:</strong> USD {Number(propiedad.precio).toLocaleString()}</p>
-                <p><strong>Superficie:</strong> {propiedad.superficie || '-'} m²</p>
-                <p><strong>Dormitorios:</strong> {propiedad.dormitorios || '-'}</p>
-                <p><strong>Baños:</strong> {propiedad.baños || '-'}</p>
+                <p><strong>Superficie:</strong> {propiedad.superficie ? `${propiedad.superficie} m²` : '-'}</p>
+                <p><strong>Dormitorios:</strong> {propiedad.dormitorios ?? '-'}</p>
+                <p><strong>Baños:</strong> {propiedad.baños ?? '-'}</p>
                 <p><strong>Descripción:</strong> {propiedad.descripcion}</p>
             </div>
         </div>

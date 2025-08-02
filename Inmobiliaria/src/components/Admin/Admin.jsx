@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc} from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,6 +16,10 @@ const Admin = () => {
         precio: '',
         descripcion: '',
         destacado: false,
+        tipo: 'venta',
+        superficie: '',   // NUEVO
+        dormitorios: '',  // NUEVO
+        baños: '',        // NUEVO
     });
 
     // URLs de imágenes actuales (en edición)
@@ -59,14 +63,11 @@ const Admin = () => {
 
     // Eliminar imagen individual en edición (URL)
     const eliminarImagenUrl = async (url) => {
-        // Confirmar eliminación
         if (!window.confirm('¿Querés eliminar esta imagen?')) return;
 
         try {
-            // Eliminar imagen de Firebase Storage
             const imgRef = ref(storage, url);
             await deleteObject(imgRef);
-            // Quitar URL de la lista local
             setImagenesUrls(prev => prev.filter(u => u !== url));
         } catch (error) {
             console.error('Error eliminando imagen:', error);
@@ -87,6 +88,10 @@ const Admin = () => {
             precio: prop.precio,
             descripcion: prop.descripcion,
             destacado: prop.destacado || false,
+            tipo: prop.tipo || 'venta',
+            superficie: prop.superficie || '',
+            dormitorios: prop.dormitorios || '',
+            baños: prop.baños || '',
         });
         setImagenesUrls(prop.imagenes || []);
         setImagenesNuevas([]);
@@ -102,13 +107,17 @@ const Admin = () => {
             precio: '',
             descripcion: '',
             destacado: false,
+            tipo: 'venta',
+            superficie: '',
+            dormitorios: '',
+            baños: '',
         });
         setImagenesUrls([]);
         setImagenesNuevas([]);
         setEditandoId(null);
     };
 
-    // Validar formulario (ejemplo básico)
+    // Validar formulario
     const validarFormulario = () => {
         if (!formData.titulo.trim()) {
             alert('El título es obligatorio');
@@ -120,6 +129,10 @@ const Admin = () => {
         }
         if (!formData.precio || isNaN(formData.precio) || Number(formData.precio) <= 0) {
             alert('Ingrese un precio válido');
+            return false;
+        }
+        if (!['venta', 'alquiler'].includes(formData.tipo)) {
+            alert('Debe seleccionar tipo Venta o Alquiler');
             return false;
         }
         if (!formData.descripcion.trim()) {
@@ -141,7 +154,6 @@ const Admin = () => {
         setSubiendo(true);
 
         try {
-            // Subir imágenes nuevas a Storage
             const urlsSubidas = [];
             for (const imagen of imagenesNuevas) {
                 const imageRef = ref(storage, `propiedades/${uuidv4()}-${imagen.name}`);
@@ -150,35 +162,37 @@ const Admin = () => {
                 urlsSubidas.push(url);
             }
 
-            // Combinar URLs viejas + nuevas
             const todasUrls = [...imagenesUrls, ...urlsSubidas];
 
+            const datosGuardar = {
+                ...formData,
+                precio: Number(formData.precio),
+                superficie: Number(formData.superficie) || null,
+                dormitorios: Number(formData.dormitorios) || null,
+                baños: Number(formData.baños) || null,
+                imagenes: todasUrls,
+            };
+
             if (editandoId) {
-                // Actualizar en Firestore
                 const propRef = doc(db, 'propiedades', editandoId);
                 await updateDoc(propRef, {
-                    ...formData,
-                    precio: Number(formData.precio),
-                    imagenes: todasUrls,
+                    ...datosGuardar,
                     actualizado: new Date()
                 });
 
                 setPropiedades(prev =>
-                    prev.map(p => p.id === editandoId ? { id: editandoId, ...formData, precio: Number(formData.precio), imagenes: todasUrls } : p)
+                    prev.map(p => p.id === editandoId ? { id: editandoId, ...datosGuardar } : p)
                 );
 
                 alert('Propiedad actualizada correctamente');
                 cancelarEdicion();
             } else {
-                // Crear nueva propiedad
                 const docRef = await addDoc(collection(db, 'propiedades'), {
-                    ...formData,
-                    precio: Number(formData.precio),
-                    imagenes: todasUrls,
+                    ...datosGuardar,
                     creado: new Date()
                 });
 
-                setPropiedades(prev => [...prev, { id: docRef.id, ...formData, precio: Number(formData.precio), imagenes: todasUrls, creado: new Date() }]);
+                setPropiedades(prev => [...prev, { id: docRef.id, ...datosGuardar, creado: new Date() }]);
                 alert('Propiedad guardada correctamente');
                 cancelarEdicion();
             }
@@ -195,7 +209,6 @@ const Admin = () => {
         if (!window.confirm('¿Querés eliminar esta propiedad? Esta acción no se puede deshacer.')) return;
 
         try {
-            // Borrar todas las imágenes de Storage
             for (const url of imagenes) {
                 try {
                     const imgRef = ref(storage, url);
@@ -205,7 +218,6 @@ const Admin = () => {
                 }
             }
 
-            // Borrar el documento
             await deleteDoc(doc(db, 'propiedades', id));
             setPropiedades(prev => prev.filter(p => p.id !== id));
             if (editandoId === id) cancelarEdicion();
@@ -245,6 +257,36 @@ const Admin = () => {
                     required
                     min="0"
                 />
+
+                
+
+                {/* Nuevos campos */}
+                <input
+                    type="number"
+                    name="superficie"
+                    placeholder="Superficie (m²)"
+                    value={formData.superficie}
+                    onChange={handleChange}
+                    min="0"
+                    step="any"
+                />
+                <input
+                    type="number"
+                    name="dormitorios"
+                    placeholder="Dormitorios"
+                    value={formData.dormitorios}
+                    onChange={handleChange}
+                    min="0"
+                />
+                <input
+                    type="number"
+                    name="baños"
+                    placeholder="Baños"
+                    value={formData.baños}
+                    onChange={handleChange}
+                    min="0"
+                />
+
                 <textarea
                     name="descripcion"
                     placeholder="Descripción"
@@ -263,6 +305,28 @@ const Admin = () => {
                     />
                     Marcar como destacado
                 </label>
+                <div className="form-group-tipo" style={{ marginBottom: '1rem' }}>
+                    <label>
+                        <input
+                            type="radio"
+                            name="tipo"
+                            value="venta"
+                            checked={formData.tipo === 'venta'}
+                            onChange={handleChange}
+                        />
+                        Venta
+                    </label>
+                    <label style={{ marginLeft: '1rem' }}>
+                        <input
+                            type="radio"
+                            name="tipo"
+                            value="alquiler"
+                            checked={formData.tipo === 'alquiler'}
+                            onChange={handleChange}
+                        />
+                        Alquiler
+                    </label>
+                </div>
 
                 <div className="imagenes-preview-container">
                     <p><strong>Imágenes actuales:</strong></p>
@@ -334,7 +398,7 @@ const Admin = () => {
                     {propiedades.map(p => (
                         <li key={p.id} className="item-propiedad">
                             <div>
-                                <strong>{p.titulo}</strong> — {p.ciudad} — USD {p.precio.toLocaleString()}
+                                <strong>{p.titulo}</strong> — {p.ciudad} — USD {p.precio.toLocaleString()} — <em>{p.tipo}</em>
                                 {p.destacado && <span className="destacado-star">★ Destacado</span>}
                             </div>
                             <div className="botones-acciones">
