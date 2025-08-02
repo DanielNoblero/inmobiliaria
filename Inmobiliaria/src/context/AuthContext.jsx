@@ -6,10 +6,12 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [usuario, setUsuario] = useState(null);
+    const [loading, setLoading] = useState(true); // <- estado de carga
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUsuario(user);
+            setLoading(false); // <- importante
         });
         return () => unsubscribe();
     }, []);
@@ -17,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     const cerrarSesion = () => firebaseSignOut(auth);
 
     return (
-        <AuthContext.Provider value={{ usuario, signOut: cerrarSesion }}>
+        <AuthContext.Provider value={{ usuario, loading, signOut: cerrarSesion }}>
             {children}
         </AuthContext.Provider>
     );

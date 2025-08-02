@@ -1,13 +1,12 @@
-// src/components/RutaProtegida.jsx
 import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 
-const RutaProtegida = ({ children }) => {
-    const { usuario } = useAuth();
+export default function RutaProtegida({ children }) {
+    const { usuario, loading } = useAuth();
 
-    if (!usuario) return <Navigate to="/login" />;
+    if (loading) {
+        return <p style={{ textAlign: 'center', marginTop: '2rem' }}>Verificando sesión...</p>;
+    }
 
-    return children;
-};
-
-export default RutaProtegida;
+    return usuario ? children : <Navigate to="/login" />;
+}
