@@ -13,7 +13,7 @@ import './components/Css/Logo.css'
 import Admin from './components/Admin/Admin.jsx';
 import RutaProtegida from './components/RutaProtegida.jsx';
 import Login from './Page/Login.jsx';
-hola
+
 
 const App = () => {
 
